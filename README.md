@@ -15,7 +15,7 @@ To use SortingVisualiser in your Java project, follow these steps:
 
 The SortingVisualiser package offers a user-friendly interface for visualizing sorting algorithms. Here's how you can use it:
 
-1. Run the `Main` class to launch the application.
+1. Run the `MainWindow` class to launch the application.
 2. Click on the sorting algorithm buttons provided (Quick Sort, Bubble Sort, Merge Sort, Heap Sort) to visualize the corresponding sorting algorithm.
 3. Watch as the algorithm sorts a visual representation of an array of elements.
 
@@ -29,7 +29,7 @@ SortingVisualiser currently supports the following sorting algorithms:
 - Heap Sort
 
 ## Project Structure
-
+`
 ├── src/
 │   └── SortingVisualiser/
 │       ├── BubbleSort.java
@@ -37,7 +37,7 @@ SortingVisualiser currently supports the following sorting algorithms:
 │       ├── MergeSort.java
 │       ├── QuickSort.java
 │       ├── MainWindow.java
-└── README.md
+└── README.md`
 
 
 ## Contributing
