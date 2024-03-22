@@ -29,7 +29,7 @@ SortingVisualiser currently supports the following sorting algorithms:
 - Heap Sort
 
 ## Project Structure
-`
+```
 ├── src/
 │   └── SortingVisualiser/
 │       ├── BubbleSort.java
@@ -37,7 +37,8 @@ SortingVisualiser currently supports the following sorting algorithms:
 │       ├── MergeSort.java
 │       ├── QuickSort.java
 │       ├── MainWindow.java
-└── README.md`
+└── README.md
+```
 
 
 ## Contributing
