@@ -1,4 +1,4 @@
-package SortingVisualiser;
+package SortingVisualiser.Swing;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,16 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
-public class MergeSort extends JPanel {
+public class HeapSort extends JPanel {
     private static final long serialVersionUID = 1L;
     private final int width = 1000, height = width * 9 / 16;
     private final int size = 200;
     private final float barWidth = (float) width / size;
     private float[] barHeight = new float[size];
     private SwingWorker<Void, Void> shuffler, sorter;
-    private int current_index;
+    private int swap1, swap2;
 
-    public MergeSort() {
+    public HeapSort() {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(width, height));
         initBarHeight();
@@ -34,82 +34,83 @@ public class MergeSort extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(Color.MAGENTA);
         Rectangle2D.Float bar;
         for (int i = 0; i < size; i++) {
             bar = new Rectangle2D.Float(i * barWidth, height - barHeight[i], barWidth, barHeight[i]);
             g2d.fill(bar);
         }
         g2d.setColor(Color.WHITE);
-        bar = new Rectangle2D.Float(current_index * barWidth, height - barHeight[current_index], barWidth,
-                barHeight[current_index]);
+        bar = new Rectangle2D.Float(swap1 * barWidth, height - barHeight[swap1], barWidth,
+                barHeight[swap1]);
+        g2d.fill(bar);
+        g2d.setColor(Color.GRAY);
+        bar = new Rectangle2D.Float(swap2 * barWidth, height - barHeight[swap2], barWidth,
+                barHeight[swap2]);
         g2d.fill(bar);
     }
 
-    private void merge(int left, int mid, int right) throws InterruptedException {
-        int leftSize = mid - left + 1;
-        int rightSize = right - mid;
+    private void max_heapify(float[] barHeight, int size, int i) throws InterruptedException {
 
-        // Create temporary arrays
-        float[] leftArray = new float[leftSize];
-        float[] rightArray = new float[rightSize];
-
-        // Copy data to temporary arrays
-        for (int i = 0; i < leftSize; ++i)
-            leftArray[i] = barHeight[left + i];
-        for (int j = 0; j < rightSize; ++j)
-            rightArray[j] = barHeight[mid + 1 + j];
-
-        // Merge the temporary arrays back into barHeight
-        int i = 0, j = 0, k = left;
-        while (i < leftSize && j < rightSize) {
-            if (leftArray[i] <= rightArray[j])
-                barHeight[k++] = leftArray[i++];
-            else
-                barHeight[k++] = rightArray[j++];
-            current_index = k;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        
+        int largest = i;
+    
+        if (l < size && barHeight[l] > barHeight[i]) {
+            largest = l;
+        }
+    
+        if (r < size && barHeight[r] > barHeight[largest]) {
+            largest = r;
+        }
+    
+        if (largest != i) {
+            // swap elements
+            float temp = barHeight[i];
+            barHeight[i] = barHeight[largest];
+            barHeight[largest] = temp;
+            swap1 = i;
+            swap2 = largest;
             Thread.sleep(1);
             repaint();
-        }
-
-        // Copy remaining elements of leftArray
-        while (i < leftSize) {
-            barHeight[k++] = leftArray[i++];
-            current_index = k;
-            Thread.sleep(1);
-            repaint();
-        }
-
-        // Copy remaining elements of rightArray
-        while (j < rightSize) {
-            barHeight[k++] = rightArray[j++];
-            current_index = k;
-            Thread.sleep(1);
-            repaint();
-        }
-
-    }
-
-    private void mergeSort(int left, int right) throws InterruptedException {
-        if (left < right) {
-            // Find the middle point
-            int mid = (left + right) / 2;
-
-            // Sort first and second halves
-            mergeSort(left, mid);
-            mergeSort(mid + 1, right);
-
-            // Merge the sorted halves
-            merge(left, mid, right);
+            max_heapify(barHeight, size, largest);
         }
     }
+    
+    private void build_max_heap(float[] barHeight) throws InterruptedException {
+        int size = barHeight.length;
+    
+        for (int i = size / 2 - 1; i >= 0; i--) {
+            max_heapify(barHeight, size, i);
+        }
+    }
+    
+    private void heap_sort(float[] barHeight) throws InterruptedException {
+        build_max_heap(barHeight);
+        
+        System.out.println();
+        for (int i = barHeight.length - 1; i >= 1; i--) {
+            // swap elements
+            float temp = barHeight[i];
+            barHeight[i] = barHeight[0];
+            barHeight[0] = temp;
+            swap1 = i;
+            swap2 = 0;
+            Thread.sleep(1);
+            repaint();
+    
+            max_heapify(barHeight, i, 0);
+        }
+    }
+    
 
     private void initSorter() {
         sorter = new SwingWorker<>() {
             @Override
             public Void doInBackground() throws InterruptedException {
                 // Sorting using merge sort
-                mergeSort(0, barHeight.length - 1);
+                heap_sort(barHeight);
                 return null;
             }
         };
@@ -152,7 +153,7 @@ public class MergeSort extends JPanel {
             JFrame frame = new JFrame("Merge Sort Visualiser");
             frame.setResizable(false);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setContentPane(new MergeSort());
+            frame.setContentPane(new HeapSort());
             frame.validate();
             frame.pack();
             frame.setLocationRelativeTo(null);
