@@ -76,7 +76,7 @@ public class QuickSort extends JPanel {
             }
             swap1 = i;
             swap2 = j;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
         }
         float temp = barHeight[i + 1];
@@ -84,7 +84,7 @@ public class QuickSort extends JPanel {
         barHeight[high] = temp;
         swap1 = i+1;
         swap2 = high;
-        Thread.sleep(1);
+        Thread.sleep(10);
         repaint();
         return (i + 1);
     }
@@ -119,7 +119,7 @@ public class QuickSort extends JPanel {
                     float temp = barHeight[i];
                     barHeight[i] = barHeight[rand];
                     barHeight[rand] = temp;
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                     repaint();
                 }
                 return null;

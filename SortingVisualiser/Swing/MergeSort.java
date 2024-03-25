@@ -68,7 +68,7 @@ public class MergeSort extends JPanel {
             else
                 barHeight[k++] = rightArray[j++];
             current_index = k;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
         }
 
@@ -76,7 +76,7 @@ public class MergeSort extends JPanel {
         while (i < leftSize) {
             barHeight[k++] = leftArray[i++];
             current_index = k;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
         }
 
@@ -84,7 +84,7 @@ public class MergeSort extends JPanel {
         while (j < rightSize) {
             barHeight[k++] = rightArray[j++];
             current_index = k;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
         }
 

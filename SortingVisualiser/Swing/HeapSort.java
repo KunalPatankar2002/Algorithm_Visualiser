@@ -72,7 +72,7 @@ public class HeapSort extends JPanel {
             barHeight[largest] = temp;
             swap1 = i;
             swap2 = largest;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
             max_heapify(barHeight, size, largest);
         }
@@ -97,7 +97,7 @@ public class HeapSort extends JPanel {
             barHeight[0] = temp;
             swap1 = i;
             swap2 = 0;
-            Thread.sleep(1);
+            Thread.sleep(10);
             repaint();
     
             max_heapify(barHeight, i, 0);
@@ -126,7 +126,7 @@ public class HeapSort extends JPanel {
                     float temp = barHeight[i];
                     barHeight[i] = barHeight[rand];
                     barHeight[rand] = temp;
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                     repaint();
                 }
                 return null;

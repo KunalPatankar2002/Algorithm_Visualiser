@@ -66,7 +66,7 @@ public class BubbleSort extends JPanel {
                         }
                         swap1 = j-1;
                         swap2 = j;
-                        Thread.sleep(1);
+                        Thread.sleep(10);
                         repaint();
                     }
                 }
@@ -85,7 +85,7 @@ public class BubbleSort extends JPanel {
                     float temp = barHeight[i];
                     barHeight[i] = barHeight[rand];
                     barHeight[rand] = temp;
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                     repaint();
                 }
                 return null;
