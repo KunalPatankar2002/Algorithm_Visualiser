@@ -30,7 +30,7 @@ SortingVisualiser currently supports the following sorting algorithms:
 
 ## Project Structure
 ```
-├── src/
+├── Swing/
 │   └── SortingVisualiser/
 │       ├── BubbleSort.java
 │       ├── HeapSort.java
